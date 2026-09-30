@@ -21,23 +21,59 @@ class Solution {
         // return new ArrayList<>(ret);
 
         // Better approach
-        Set<List<Integer>> retSet = new HashSet<>();
-        for(int i = 0;i<n-2;i++){
-            Set<Integer> seenList = new HashSet<>();
-            for(int j = i+1;j<n;j++){
-                int diff = -(nums[i] + nums[j]);
-                if(seenList.contains(diff)){
-                    List<Integer> rowList = new ArrayList<>(
+        // Set<List<Integer>> retSet = new HashSet<>();
+        // for(int i = 0;i<n-2;i++){
+        //     Set<Integer> seenList = new HashSet<>();
+        //     for(int j = i+1;j<n;j++){
+        //         int diff = -(nums[i] + nums[j]);
+        //         if(seenList.contains(diff)){
+        //             List<Integer> rowList = new ArrayList<>(
+        //                 Arrays.asList(
+        //                     nums[i],nums[j],diff
+        //                 )
+        //             );
+        //             Collections.sort(rowList);
+        //             retSet.add(rowList);
+        //         }
+        //         seenList.add(nums[j]);
+        //     }
+        // }
+        // return new ArrayList<>(retSet);
+
+        // Optimal Approach
+        Arrays.sort(nums);
+        List<List<Integer>> retSet = new ArrayList<>();
+        for(int fixed = 0;fixed < n -2;fixed++){
+            if(fixed > 0 && nums[fixed] == nums[fixed -1]){
+                continue;
+            }
+            int left = fixed + 1;
+            int right = n - 1;
+            while(left < right){
+                int sum = nums[fixed] + nums[left] + nums[right];
+                if(sum == 0){
+                    List<Integer> list = new ArrayList<>(
                         Arrays.asList(
-                            nums[i],nums[j],diff
+                            nums[fixed],nums[left],nums[right]
                         )
                     );
-                    Collections.sort(rowList);
-                    retSet.add(rowList);
+                    Collections.sort(list);
+                    retSet.add(list);
+                    left++;
+                    right--;
+                    while(left < right && nums[left] == nums[left-1]){
+                        left++;
+                    }
+                    while(left < right && nums[right] == nums[right+1]){
+                        right--;
+                    }
+                }else if(sum < 0){
+                    left++;
+                }else{
+                    right--;
                 }
-                seenList.add(nums[j]);
             }
         }
-        return new ArrayList<>(retSet);
+        return retSet;
     }
 }
