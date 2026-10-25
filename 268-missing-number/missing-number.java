@@ -1,15 +1,23 @@
 class Solution {
     public int missingNumber(int[] nums) {
         int n = nums.length;
-        Map<Integer,Integer> set = new HashMap<>();
-        for(int i = 0; i<n;i++){
-            set.put(nums[i],i);
-        }
-        for(int i = 0;i<=n;i++){
-            if(!set.containsKey(i)){
-                return i;
+        int left = 0;
+        int val = 0;
+        boolean found = false;
+        while(left <= n){
+            for(int i = 0;i<n;i++){
+                if(left == nums[i]){
+                    found = true;
+                    break;
+                }
             }
+            if(found == false){
+                return left;
+            }else{
+                found = false;
+            }
+            left++;
         }
-        return -1;
+        return left;
     }
 }
