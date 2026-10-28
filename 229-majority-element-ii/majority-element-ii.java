@@ -2,17 +2,18 @@ class Solution {
     public List<Integer> majorityElement(int[] nums) {
         List<Integer> list = new ArrayList<>();
         int n = nums.length;
+        // The problem can have at most two majority element with count greater than n/3
+        Map<Integer,Integer> map = new HashMap<>();
         for(int i = 0;i<n;i++){
-            int count = 0;
-            for(int j = i+1;j<n;j++){
-                if(nums[i] == nums[j]){
-                    count++;
-                }
+            if(!map.containsKey(nums[i])){
+                map.put(nums[i],1);
+            }else{
+                map.put(nums[i],map.get(nums[i])+1);
             }
-            if(count >= n/3){
-                if(!list.contains(nums[i])){
-                    list.add(nums[i]);
-                }
+        }
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+            if(entry.getValue() > n/3){
+                list.add(entry.getKey());
             }
         }
         return list;
