@@ -1,24 +1,20 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        int repeatation = nums.length/3;
-        int maxCount = Integer.MIN_VALUE;
-        List<Integer> ret = new ArrayList<>();
-        for(int i=0;i<nums.length;i++){
+        List<Integer> list = new ArrayList<>();
+        int n = nums.length;
+        for(int i = 0;i<n;i++){
             int count = 0;
-            int x = nums[i];
-            for(int j=i+1;j<nums.length;j++){
-                if(x == nums[j]){
+            for(int j = i+1;j<n;j++){
+                if(nums[i] == nums[j]){
                     count++;
                 }
             }
-
-            if(count >= repeatation){
-                int index = ret.indexOf(nums[i]);
-                if(index == -1){
-                    ret.add(nums[i]);
+            if(count >= n/3){
+                if(!list.contains(nums[i])){
+                    list.add(nums[i]);
                 }
             }
         }
-        return ret;
+        return list;
     }
 }
