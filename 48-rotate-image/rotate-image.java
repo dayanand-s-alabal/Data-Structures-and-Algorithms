@@ -1,33 +1,30 @@
 class Solution {
-    public int[][] transpose(int[][] matrix,int m,int n){
-        int[][] ret = new int[m][n];
-        for(int i=0;i<m;i++){
-            for(int j = 0;j<n;j++){
-                ret[j][i] = matrix[i][j];
+    public int[][] transpose(int[][] matrix,int rows,int columns){
+        int[][] transpose = new int[rows][rows];
+        for(int i = 0;i<rows;i++){
+            for(int j = 0;j<rows;j++){
+                transpose[i][j] = matrix[j][i];
             }
         }
-        return ret;
+        return transpose;
     }
-
     public void rotate(int[][] matrix) {
-        int rowLen = matrix.length;
-        int colLen = matrix[0].length;
-        
-        int[][] transpose = transpose(matrix,rowLen,colLen);
+        int rows = matrix.length;
+        int columns = matrix[0].length;
 
-        for(int i =0;i<rowLen;i++){
-            for(int j=0;j<colLen;j++){
+        int[][] transpose = transpose(matrix,rows,columns);
+        int mid = columns/2;
+        for(int i = 0;i<mid;i++){
+            for(int j = 0;j<rows;j++){
+                int temp = transpose[j][i];
+                transpose[j][i] = transpose[j][columns-i-1];
+                transpose[j][columns-i-1] = temp;
+            }
+        }
+        for(int i = 0;i<rows;i++){
+            for(int j = 0;j<rows;j++){
                 matrix[i][j] = transpose[i][j];
             }
         }
-
-        for(int i=0;i<rowLen;i++){
-            for(int j = 0;j<colLen/2;j++){
-                int temp = matrix[i][colLen-j-1];
-                matrix[i][colLen-j-1] = matrix[i][j];
-                matrix[i][j] = temp;
-            }
-        }
-        
     }
 }
