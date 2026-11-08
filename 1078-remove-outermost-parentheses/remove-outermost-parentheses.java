@@ -4,8 +4,7 @@ class Solution {
         Deque<Integer> stk = new ArrayDeque<>();
         String str = "";
         int bal = 0;
-        for(int i = 0;i<s.length();i++){
-            char ch = s.charAt(i);
+        for(char ch : s.toCharArray()){
             if(ch == '('){
                 if(bal > 0){
                     str += String.valueOf(ch);
@@ -15,7 +14,6 @@ class Solution {
                 bal--;
                 if(bal > 0)
                 str += String.valueOf(ch);
-                
             }
         }
         return str;
