@@ -14,7 +14,7 @@ class Solution {
     public String longestPalindrome(String s) {
         int count = 0;
         String longest = "";
-        for(int i = 0;i < s.length()-count+1;i++){
+        for(int i = 0;i < s.length()-count;i++){
             for(int j = i;j < s.length(); j++){
                 boolean isPalindrome = checkPalindrome(s.substring(i,j+1));
                 int currCount = j-i+1;
