@@ -9,30 +9,66 @@
  * }
  */
 class Solution {
+    // public ListNode mergeKLists(ListNode[] lists) {
+
+    //     ArrayList<Integer> arr = new ArrayList<>();
+
+    //     // Step 1: Store all values
+    //     for (ListNode node : lists) {
+
+    //         while (node != null) {
+    //             arr.add(node.val);
+    //             node = node.next;
+    //         }
+    //     }
+
+    //     // Step 2: Sort values
+    //     Collections.sort(arr);
+
+    //     // Step 3: Create linked list
+    //     ListNode dummy = new ListNode(0);
+    //     ListNode temp = dummy;
+
+    //     for (int num : arr) {
+
+    //         temp.next = new ListNode(num);
+    //         temp = temp.next;
+    //     }
+
+    //     return dummy.next;
+    // }
+
+    // Optimal approach
     public ListNode mergeKLists(ListNode[] lists) {
 
-        ArrayList<Integer> arr = new ArrayList<>();
+        PriorityQueue<ListNode> pq =
+            new PriorityQueue<>((a, b) -> a.val - b.val);
 
-        // Step 1: Store all values
+        // Step 1: Add heads of all linked lists
         for (ListNode node : lists) {
 
-            while (node != null) {
-                arr.add(node.val);
-                node = node.next;
+            if (node != null) {
+                pq.add(node);
             }
         }
 
-        // Step 2: Sort values
-        Collections.sort(arr);
-
-        // Step 3: Create linked list
+        // Dummy node
         ListNode dummy = new ListNode(0);
         ListNode temp = dummy;
 
-        for (int num : arr) {
+        // Step 2: Process the smallest node
+        while (!pq.isEmpty()) {
 
-            temp.next = new ListNode(num);
+            ListNode smallest = pq.poll();
+
+            // Attach smallest node to result
+            temp.next = smallest;
             temp = temp.next;
+
+            // Add next node from the same list
+            if (smallest.next != null) {
+                pq.add(smallest.next);
+            }
         }
 
         return dummy.next;
