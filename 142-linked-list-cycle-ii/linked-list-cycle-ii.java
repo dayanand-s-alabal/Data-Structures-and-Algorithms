@@ -11,18 +11,45 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        ListNode temp = head;
+        // ListNode temp = head;
+        // if(head == null || head.next == null){
+        //     return null;
+        // }
+        // Map<ListNode,Integer> map = new HashMap<>();
+        // while(! map.containsKey(temp) && temp.next != null){
+        //     map.put(temp,temp.val);
+        //     temp = temp.next;
+        // }
+        // if(temp == null || temp.next == null){
+        //     return null;
+        // }
+        // return temp;
+
+        // Optimal approach
+
         if(head == null || head.next == null){
             return null;
         }
-        Map<ListNode,Integer> map = new HashMap<>();
-        while(! map.containsKey(temp) && temp.next != null){
-            map.put(temp,temp.val);
-            temp = temp.next;
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                break;
+            }
         }
-        if(temp == null || temp.next == null){
+        
+        if(slow == fast){
+            slow = head;
+            while(slow != fast){
+                slow = slow.next;
+                fast = fast.next;
+            }
+        }else{
             return null;
         }
-        return temp;
+        
+        return slow;
     }
 }
