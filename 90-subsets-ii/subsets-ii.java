@@ -1,6 +1,7 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Set<List<Integer>> retList = new HashSet<>();
+        Arrays.sort(nums);
 
         int n = nums.length;
         int total = 1<<n;
@@ -12,7 +13,7 @@ class Solution {
                     list.add(nums[j]);
                 }
             }
-            Collections.sort(list);
+            // Collections.sort(list);
             retList.add(list);
         }
         return new ArrayList<>(retList);
