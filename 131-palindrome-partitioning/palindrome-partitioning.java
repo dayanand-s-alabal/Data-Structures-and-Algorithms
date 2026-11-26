@@ -22,7 +22,6 @@ class Solution {
             backtrack(s.substring(i,s.length()),current,retList);
             current.remove(current.size()-1);
         }
-        return;
     }
     public List<List<String>> partition(String s) {
         if(s == null || s.length() == 0){
